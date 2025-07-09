@@ -7,8 +7,8 @@ class Book:
     def contracts():
         pass
     
-    def authors():
-        pass
+    def authors(self):
+        return [contract.author for contract in Contract.all if contract.book == self]
 
 class Author:
     all =[]
@@ -19,8 +19,8 @@ class Author:
     def contracts():
         pass
     
-    def books():
-        pass
+    def books(self):
+        return [contract.book for contract in Contract.all if contract.author == self]
 
     def sign_contracts(book,date, royalties):
         pass
