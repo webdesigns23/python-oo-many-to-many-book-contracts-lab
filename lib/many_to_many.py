@@ -4,8 +4,8 @@ class Book:
         self.title = title
         Book.all.append(self)
 
-    def contracts():
-        pass
+    def contracts(self):
+        return [contract for contract in Contract.all if contract.book == self]
     
     def authors(self):
         return [contract.author for contract in Contract.all if contract.book == self]
@@ -16,17 +16,19 @@ class Author:
         self.name = name
         Author.all.append(self)
 
-    def contracts():
-        pass
+    def contracts(self):
+        return [contract for contract in Contract.all if contract.author == self]
     
     def books(self):
         return [contract.book for contract in Contract.all if contract.author == self]
 
-    def sign_contracts(book,date, royalties):
-        pass
+    def sign_contract(self, book,date, royalties):
+        new_contract = Contract(author = self, book = book, date = date, royalties = royalties)
+        return new_contract
 
-    def total_royalties():
-        pass
+    def total_royalties(self):
+        total = [contract.royalties for contract in self.contracts()]
+        return sum(total)
 
 class Contract:
     all =[]
@@ -73,5 +75,6 @@ class Contract:
             raise Exception
         self._royalties = value
 
-    def contracts_by_date():
-        pass
+    @classmethod
+    def contracts_by_date(cls, date):
+        return [contract for contract in cls.all if contract.date == date]
